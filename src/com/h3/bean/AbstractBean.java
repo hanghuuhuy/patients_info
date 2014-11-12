@@ -9,8 +9,8 @@ package com.h3.bean;
 
 import java.io.Serializable;
 
-import com.h3.utils.FacesUtils;
-import com.h3.utils.ResourcesLoader;
+import com.h3.util.FacesUtils;
+import com.h3.util.ResourcesLoader;
 
 public class AbstractBean implements Serializable {
 
