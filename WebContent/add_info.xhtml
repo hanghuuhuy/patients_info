@@ -1,0 +1,45 @@
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:body>
+	<ui:composition template="/layout/template1.xhtml">
+
+		<ui:define name="content">
+
+			<h:form id="info_form">
+				<p:growl id="msg" showDetail="false" life="3000" autoUpdate="true"/>
+
+				<h:panelGrid columns="2" columnClasses="name_long, value">
+
+					<h:outputLabel value="MS Bệnh Nhân: " />
+					<p:inputText value="#{patientBean.patient.id}" required="true" requiredMessage="Nhập MS Bệnh Nhân"/>
+					
+					<h:outputLabel value="Tên Bệnh Nhân: " />
+					<p:inputText value="#{patientBean.patient.name}" required="true" requiredMessage="Nhập Tên Bệnh Nhân"/>
+					
+						
+				</h:panelGrid>
+
+				<p:commandButton style="width: 150px" value="Lưu" update="info_form" actionListener="#{patientBean.save()}"/>
+				
+				<p:dataTable var="item" value="#{patientBean.patients}" widgetVar="pTable">
+		 
+			        <p:column filterBy="#{item.id}" sortBy="#{item.id}" headerText="Mã Số BN" >
+			            <h:outputText value="#{item.id}" />
+			        </p:column>
+			 
+			        <p:column filterBy="#{item.name}" sortBy="#{item.name}" headerText="Họ Tên BN" >
+			            <h:outputText value="#{item.name}" />
+			        </p:column>
+			 
+			    </p:dataTable>
+			</h:form>
+
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>

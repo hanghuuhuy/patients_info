@@ -1,0 +1,129 @@
+body {
+    background-color: #eeeeee;
+    font-size: 15px;
+}
+
+a img {
+    border: none;
+}
+
+a img {
+    border: none;
+}
+
+h1 {
+    font-size: 1.8em;
+    margin-top: 0;
+}
+
+.name {
+    vertical-align: top;
+    font-weight: bold;
+    width: 115px;
+    float: left;
+    padding: 5px;
+    margin-top: 3px;
+    clear: left;
+}
+
+.name_long {
+    vertical-align: top;
+    font-weight: bold;
+    width: 150px;
+    float: left;
+    padding: 5px;
+    margin-top: 3px;
+    clear: left;
+}
+
+.value {
+    float: left;
+    padding: 5px;
+}
+
+button {
+    cursor: pointer !important;
+    height: 40px !important;
+    font-size: 15px !important;
+}
+
+input[type=submit], input[type=button] {   
+    cursor: pointer !important;
+    height: 40px !important;
+}
+
+input[type=text], input[type=password] {
+    padding-left: 4px;
+    height: 25px;
+    width: 250px !important;
+}
+
+select {
+    font-size: 13px;
+}
+
+#content {
+    padding: 10px;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;    
+}
+
+.box {
+    display: table; 
+    margin-right: auto; 
+    margin-left: auto; 
+}
+
+.ui-layout, .ui-layout-doc, .ui-layout-unit, .ui-layout-wrap, .ui-layout-bd, .ui-layout-hd{
+    border: 0px !important;
+}
+
+.customButton {
+    margin-top: 10px;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.buttonBorder {
+    border: 2px outset;
+    border-radius: 15px;
+    width: 169px;
+    height: 120px;
+    position:relative;
+    text-align:center;
+}
+.buttonText {
+    display: table;
+    margin-left:auto; 
+    margin-right:auto;
+    margin-top:52.5%;
+    font-weight:bold;font-size:18px;font-family:arial, helvetica, sans-serif;
+}
+
+#servicelogin {
+    background-image: url(#{resource['images/service_login_button.png']});
+background-size: 150px 100px;
+}
+#servicelogin:hover {
+    background-image: url(#{resource['images/service_login_button_Over.png']});
+background-size: 150px 100px;
+}
+
+#reportproblem {
+    background-image: url(#{resource['images/report_problem_button.png']});
+background-size: 150px 100px;
+}
+#reportproblem:hover {
+    background-image: url(#{resource['images/report_problem_button_Over.png']});
+background-size: 150px 100px;
+}
+
+#energysavings {
+    background-image: url(#{resource['images/energy_savings_button.png']});
+background-size: 150px 100px;
+}
+#energysavings:hover {
+    background-image: url(#{resource['images/energy_savings_button_Over.png']});
+background-size: 150px 100px;
+}
