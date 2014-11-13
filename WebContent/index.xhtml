@@ -7,17 +7,21 @@
 <h:body>
 	<ui:composition template="/layout/template.xhtml">
 
-<!-- Xài  <p:poll>-->
+		<!-- Xài  <p:poll>-->
 		<ui:define name="content">
 
-			<h:form>
+			<h:form id="info_form">
 				
+				<!--Info thu 1  -->
 				<p:panel header="P.1" style="margin-bottom:20px">
 
 					<h:panelGrid columns="2" columnClasses="name_long, value">
-
+						
+						<h:outputLabel value="MS Bệnh Nhân: " />
+						<h:outputLabel value="#{dashboardBean.patients.get(0).id}" />
+						
 						<h:outputLabel value="Tên Bệnh Nhân: " />
-						<h:outputLabel value="Nguyễn Văn An" />
+						<h:outputLabel value="#{dashboardBean.patients.get(0).name}" />
 
 						<h:outputLabel value="Tình Trạng: " />
 						<h:outputLabel value="XXX" />
@@ -37,11 +41,15 @@
 					</h:panelGrid>
 				</p:panel>
 
+				<!--Info thu 2  -->
 				<p:panel header="P.2" style="margin-bottom:20px">
 					<h:panelGrid columns="2" columnClasses="name_long, value">
-
+						
+						<h:outputLabel value="MS Bệnh Nhân: " />
+						<h:outputLabel value="#{dashboardBean.patients.get(1).id}" />
+							
 						<h:outputLabel value="Tên Bệnh Nhân: " />
-						<h:outputLabel value="Nguyễn Văn An" />
+						<h:outputLabel value="#{dashboardBean.patients.get(1).name}" />
 
 						<h:outputLabel value="Tình Trạng: " />
 						<h:outputLabel value="XXX" />
@@ -60,6 +68,8 @@
 							
 					</h:panelGrid>
 				</p:panel>
+				
+				<p:poll interval="3" listener="#{dashboardBean.refresh()}" update="info_form" />
 			</h:form>
 
 		</ui:define>
