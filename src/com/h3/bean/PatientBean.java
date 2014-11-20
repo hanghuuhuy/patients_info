@@ -17,6 +17,7 @@ import javax.faces.bean.ViewScoped;
 import org.apache.log4j.Logger;
 
 import com.h3.model.Patient;
+import com.h3.util.DBUtils;
 
 @ViewScoped
 @ManagedBean
@@ -32,7 +33,7 @@ public class PatientBean extends AbstractBean {
 
     private Patient patient;
     
-    private List<Patient> patients;
+    private List patients;
     
     @PostConstruct
     public void init() {
@@ -41,18 +42,25 @@ public class PatientBean extends AbstractBean {
         
         patient = new Patient();
         
-        patients = new ArrayList<Patient>();
+//        patients = new ArrayList<Patient>();
+//        
+//        patients.add(new Patient("11", "Nguyễn Văn A"));
+//        patients.add(new Patient("22", "Nguyễn Văn B"));
         
-        patients.add(new Patient("11", "Nguyễn Văn A"));
-        patients.add(new Patient("22", "Nguyễn Văn B"));
+        patients = DBUtils.query("select * from patient", Patient.class);
+        
     }
     
     public void save() {
     	
     	logger.info("save");
     	
-    	patients.add(patient);
-    	patient = new Patient();
+    	System.out.println(patient.getName());
+    	
+    	//patients.add(patient);
+    	DBUtils.executeUpdate("insert into patient(id, name) values (?,?)", patient.getId(), patient.getId());
+    	
+    	patients = DBUtils.query("select * from patient", Patient.class);
     	
     }
 

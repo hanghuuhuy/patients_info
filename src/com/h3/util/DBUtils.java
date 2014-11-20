@@ -35,7 +35,7 @@ public class DBUtils {
         try {
             Context initCtx = new InitialContext();
             envCtx = (Context) initCtx.lookup("java:comp/env");
-            ds = (DataSource) envCtx.lookup("jdbc/postgres");
+            ds = (DataSource) envCtx.lookup("jdbc/AppCenterDS");
         } catch (NamingException ex) {
             logger.error(SysUtil.getStackTrace(ex));
         }
