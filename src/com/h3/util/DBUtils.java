@@ -42,14 +42,14 @@ public class DBUtils {
 
     }
 
-    public static List<AbstractEntity> query(String sql, Class clazz) {
+    public static <T extends AbstractEntity> List<T> query(String sql, Class<T> clazz) {
 
         logger.info("query");
         logger.info("sql=" + sql);
 
         Connection conn = null;
         PreparedStatement pst = null;
-        List<AbstractEntity> results = null;
+        List<T> results = null;
         try {
             conn = ds.getConnection();
 
@@ -82,14 +82,14 @@ public class DBUtils {
         return results;
     }
 
-    public static List<AbstractEntity> query(String sql, Class clazz, Object... args) {
+    public static <T extends AbstractEntity> List<T> query(String sql, Class<T> clazz, Object... args) {
 
         logger.info("query");
         logger.info("sql=" + sql);
 
         Connection conn = null;
         PreparedStatement pst = null;
-        List<AbstractEntity> results = null;
+        List<T> results = null;
         try {
             conn = ds.getConnection();
 
@@ -238,15 +238,15 @@ public class DBUtils {
         return records;
     }
 
-    public static List<AbstractEntity> rs2Entity(ResultSet rs, Class clazz) {
+    public static <T extends AbstractEntity> List<T> rs2Entity(ResultSet rs, Class<T> clazz) {
 
         // better add performance
-        List<AbstractEntity> records = new LinkedList<AbstractEntity>();
+        List<T> records = new LinkedList<T>();
 
         try {
            Field[] fields = clazz.getDeclaredFields();
             while (rs.next()) {
-                AbstractEntity obj = (AbstractEntity) clazz.newInstance();
+                T obj = clazz.newInstance();
                 for (Field field : fields) {
                     field.setAccessible(true);
                     String fieldName = field.getName();
