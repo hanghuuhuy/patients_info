@@ -1,45 +1,195 @@
-<html xmlns="http://www.w3c.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3c.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/layout/template_admin.xhtml">
 
-<h:body>
-	<ui:composition template="/layout/template1.xhtml">
+	<ui:define name="content">
 
-		<ui:define name="content">
+		<h:form id="info_form">
+			<p:growl id="msg" showDetail="false" life="3000" autoUpdate="true" />
 
-			<h:form id="info_form">
-				<p:growl id="msg" showDetail="false" life="3000" autoUpdate="true"/>
+			<p:panel header="CHI TIẾT: ">
+
+				<h:panelGrid columns="4"
+					columnClasses="name_long, value, name_long, value">
+
+					<h:panelGroup layout="block">
+						<h:outputLabel value="MS Bệnh Nhân: " />
+						<span style="color: #FF0000">*</span>
+					</h:panelGroup>
+					<p:inputText value="#{operationBean.operation.patientId}"
+						required="true" requiredMessage="Nhập MS Bệnh Nhân"
+						disabled="#{operationBean.checkIsEditMode()}" />
+
+					<h:panelGroup layout="block">
+						<h:outputLabel value="Tên Bệnh Nhân: " />
+						<span style="color: #FF0000">*</span>
+					</h:panelGroup>
+					<p:inputText value="#{operationBean.operation.patientName}"
+						required="true" requiredMessage="Nhập Tên Bệnh Nhân" />
+
+					<h:panelGroup layout="block">
+						<h:outputLabel value="Tuổi: " />
+						<span style="color: #FF0000">*</span>
+					</h:panelGroup>
+					<p:spinner value="#{operationBean.operation.patientAge}"
+						required="true" requiredMessage="Nhập Tuổi Bệnh Nhân"
+						type="number" />
+
+					<h:panelGroup layout="block">
+						<h:outputLabel value="Phòng Mổ: " />
+						<span style="color: #FF0000">*</span>
+					</h:panelGroup>
+					<p:selectOneMenu value="#{operationBean.operation.operatingRoom}"
+						required="true" requiredMessage="Nhập Phòng mổ">
+						<f:selectItem itemLabel="Không" itemValue="" />
+						<f:selectItem itemLabel="Phòng 1" itemValue="Phòng 1" />
+						<f:selectItem itemLabel="Phòng 2" itemValue="Phòng 2" />
+						<f:selectItem itemLabel="Phòng 3" itemValue="Phòng 3" />
+						<f:selectItem itemLabel="Phòng 4" itemValue="Phòng 4" />
+						<f:selectItem itemLabel="Phòng 5" itemValue="Phòng 5" />
+						<f:selectItem itemLabel="Phòng 6" itemValue="Phòng 6" />
+						<f:selectItem itemLabel="Phòng 7" itemValue="Phòng 7" />
+					</p:selectOneMenu>
+
+					<h:panelGroup layout="block">
+						<h:outputLabel value="Thời Gian Bắt Đầu: " />
+						<span style="color: #FF0000">*</span>
+					</h:panelGroup>
+					<p:calendar value="#{operationBean.operation.utilStartTime}"
+						pattern="dd-MM-yyyy HH:mm" required="true"
+						requiredMessage="Nhập Thời Gian Bắt Đầu" locale="vi"
+						showButtonPanel="true" />
+
+					<h:panelGroup layout="block">
+						<h:outputLabel value="Thời Gian Kết Thúc: " />
+						<span style="color: #FF0000">*</span>
+					</h:panelGroup>
+					<p:calendar value="#{operationBean.operation.utilEndTime}"
+						pattern="dd-MM-yyyy HH:mm" required="true"
+						requiredMessage="Nhập Thời Gian Kết Thúc" locale="vi"
+						showButtonPanel="true" />
+
+					<h:panelGroup layout="block">
+						<h:outputLabel value="Người Phụ Trách: " />
+						<span style="color: #FF0000">*</span>
+					</h:panelGroup>
+					<p:inputText value="#{operationBean.operation.mainSurgeon}"
+						required="true" requiredMessage="Nhập Bác Sĩ Phụ Trách" />
+
+					<h:outputLabel value="Hiển Thị: " />
+					<p:selectBooleanCheckbox value="#{operationBean.operation.isShow}"
+						required="true" requiredMessage="Chọn hiển thị" />
+
+					<h:outputLabel value="Tình Trạng: " />
+					<h:panelGroup layout="block">
+						<p:inputText value="#{operationBean.operation.status}"
+							required="false" requiredMessage="Nhập Tình Trạng ca mổ" />
+						<br />
+						<br />
+						<p:commandButton style="width: 150px" value="Lưu"
+							update="info_form" actionListener="#{operationBean.save()}" ajax="false" />
+					</h:panelGroup>
+
+					<h:outputLabel value="Ghi Chú: " />
+					<p:inputTextarea value="#{operationBean.operation.note}" rows="4"
+						cols="30" required="false" requiredMessage="Nhập Ghi chú" />
+
+
+				</h:panelGrid>
+
+			</p:panel>
+
+		</h:form>
+
+		<br />
+
+		<h:form id="list_form">
+
+			<p:panel header="LIỆT KÊ: ">
 
 				<h:panelGrid columns="2" columnClasses="name_long, value">
 
-					<h:outputLabel value="MS Bệnh Nhân: " />
-					<p:inputText value="#{patientBean.patient.id}" required="true" requiredMessage="Nhập MS Bệnh Nhân"/>
-					
-					<h:outputLabel value="Tên Bệnh Nhân: " />
-					<p:inputText value="#{patientBean.patient.name}" required="true" requiredMessage="Nhập Tên Bệnh Nhân"/>
-					
-						
+					<h:panelGroup>
+						<p:calendar value="#{operationBean.filterDate}"
+							pattern="dd-MM-yyyy" locale="vi" mode="inline">
+							<p:ajax event="dateSelect"
+								listener="#{operationBean.doDisplayListOfDate()}"
+								update="operationList, displayListOfIsShowButton" />
+						</p:calendar>
+
+						<br />
+						<br />
+
+						<p:selectBooleanButton id="displayListOfIsShowButton"
+							value="#{operationBean.filterIsShow}"
+							onLabel="Những ca mổ đang hiển thị"
+							offLabel="Những ca mổ đang hiển thị" onIcon="ui-icon-check"
+							offIcon="ui-icon-close">
+							<p:ajax listener="#{operationBean.doDisplayListOfIsShow()}"
+								update="operationList, displayListOfIsShowButton" />
+						</p:selectBooleanButton>
+					</h:panelGroup>
+
+					<p:dataTable id="operationList" var="item"
+						value="#{operationBean.operations}" widgetVar="pTable">
+
+						<p:column sortBy="#{item.isShow}" headerText="Hiển thị"
+							style="width:5%;text-align:center;">
+
+							<h:outputText styleClass="ui-icon ui-icon-check"
+								style="display:inline-block" rendered="#{item.isShow}" />
+
+							<h:outputText value="X"
+								style="color:#2fa2ff;font-style:italic;font-weight:bolder;texdisplay:inline-block"
+								rendered="#{!item.isShow}" />
+
+						</p:column>
+
+						<p:column filterBy="#{item.patientId}" sortBy="#{item.patientId}"
+							headerText="Mã Số BN" style="text-align:center;">
+							<h:outputText value="#{item.patientId}" />
+						</p:column>
+
+						<p:column filterBy="#{item.patientName}"
+							sortBy="#{item.patientName}" headerText="Họ Tên BN"
+							style="text-align:center;">
+							<h:outputText value="#{item.patientName}" />
+						</p:column>
+
+						<p:column filterBy="#{item.patientAge}"
+							sortBy="#{item.patientAge}" headerText="Tuổi"
+							style="text-align:center;">
+							<h:outputText value="#{item.patientAge}" />
+						</p:column>
+
+						<p:column filterBy="#{item.formattedStartTime}"
+							sortBy="#{item.formattedStartTime}"
+							headerText="Thời gian bắt đầu" style="text-align:center;">
+							<h:outputText value="#{item.formattedStartTime}" />
+						</p:column>
+
+						<p:column style="width:5%;text-align:center;"
+							headerText="Chỉnh sửa">
+							<p:commandButton icon="ui-icon-pencil" title="Edit"
+								action="#{operationBean.doEditItem()}" update="info_form" ajax="false">
+								<f:setPropertyActionListener value="#{item}"
+									target="#{operationBean.selectedOperation}" />
+							</p:commandButton>
+						</p:column>
+
+					</p:dataTable>
 				</h:panelGrid>
 
-				<p:commandButton style="width: 150px" value="Lưu" update="info_form" actionListener="#{patientBean.save()}"/>
-				
-				<p:dataTable var="item" value="#{patientBean.patients}" widgetVar="pTable">
-		 
-			        <p:column filterBy="#{item.id}" sortBy="#{item.id}" headerText="Mã Số BN" >
-			            <h:outputText value="#{item.id}" />
-			        </p:column>
-			 
-			        <p:column filterBy="#{item.name}" sortBy="#{item.name}" headerText="Họ Tên BN" >
-			            <h:outputText value="#{item.name}" />
-			        </p:column>
-			 
-			    </p:dataTable>
-			</h:form>
+			</p:panel>
 
-		</ui:define>
+		</h:form>
 
-	</ui:composition>
-</h:body>
-</html>
+	</ui:define>
+
+</ui:composition>
+
+
+

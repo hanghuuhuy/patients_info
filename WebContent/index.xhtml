@@ -1,76 +1,72 @@
 
-	<ui:composition template="/layout/template.xhtml"
+<ui:composition template="/layout/template.xhtml"
 	xmlns="http://www.w3c.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-		<!-- Xài  <p:poll>-->
-		<ui:define name="content">
+	<ui:define name="content">
 
-			<h:form id="info_form">
-				
-				<!--Info thu 1  -->
-				<p:panel header="P.1" style="margin-bottom:20px">
+		<h:form id="show_form">
 
-					<h:panelGrid columns="2" columnClasses="name_long, value">
-						
-						<h:outputLabel value="MS Bệnh Nhân: " />
-						<h:outputLabel value="#{dashboardBean.patients.get(0).id}" />
-						
-						<h:outputLabel value="Tên Bệnh Nhân: " />
-						<h:outputLabel value="#{dashboardBean.patients.get(0).name}" />
+			<!-- <h:outputLabel value="Không có ca mổ nào"
+				rendered="#{showBean.operation1 == null}" /> -->
 
-						<h:outputLabel value="Tình Trạng: " />
-						<h:outputLabel value="XXX" />
+			<p:panel id="operation_panel_1"
+				header="#{showBean.operation1.operatingRoom} - Phụ Trách: #{showBean.operation1.mainSurgeon}"
+				rendered="#{showBean.operation1 != null}"
+				style="margin-bottom:20px; border:solid #dad7d7 2px;">
 
-						<h:outputLabel value="Giờ Dự Kiến: " />
-						<h:outputLabel value="xxx" />
-						
-						<h:outputLabel value="Tên Bệnh Nhân: " />
-						<h:outputLabel value="Nguyễn Văn An" />
+				<h:panelGrid columns="2" columnClasses="name_long, value">
 
-						<h:outputLabel value="Tình Trạng: " />
-						<h:outputLabel value="XXX" />
+					<h:outputLabel value="Tên Bệnh Nhân: " />
+					<h:outputLabel value="#{showBean.operation1.patientName}" />
 
-						<h:outputLabel value="Giờ Dự Kiến: " />
-						<h:outputLabel value="xxx" />
-							
-					</h:panelGrid>
-				</p:panel>
+					<h:outputLabel value="Tuổi: " />
+					<h:outputLabel value="#{showBean.operation1.patientAge}" />
 
-				<!--Info thu 2  -->
-				<p:panel header="P.2" style="margin-bottom:20px">
-					<h:panelGrid columns="2" columnClasses="name_long, value">
-						
-						<h:outputLabel value="MS Bệnh Nhân: " />
-						<h:outputLabel value="#{dashboardBean.patients.get(1).id}" />
-							
-						<h:outputLabel value="Tên Bệnh Nhân: " />
-						<h:outputLabel value="#{dashboardBean.patients.get(1).name}" />
+					<h:outputLabel value="Thời gian bắt đầu: " />
+					<h:outputLabel value="#{showBean.operation1.formattedStartTime}" />
 
-						<h:outputLabel value="Tình Trạng: " />
-						<h:outputLabel value="XXX" />
+					<h:outputLabel value="Thời gian kết thúc: " />
+					<h:outputLabel value="#{showBean.operation1.formattedEndTime}" />
 
-						<h:outputLabel value="Giờ Dự Kiến: " />
-						<h:outputLabel value="xxx" />
-						
-						<h:outputLabel value="Tên Bệnh Nhân: " />
-						<h:outputLabel value="Nguyễn Văn An" />
+					<h:outputLabel value="#{showBean.operation1.status}: " />
+					<h:outputText value="#{showBean.operation1.note}" />
 
-						<h:outputLabel value="Tình Trạng: " />
-						<h:outputLabel value="XXX" />
+				</h:panelGrid>
+			</p:panel>
 
-						<h:outputLabel value="Giờ Dự Kiến: " />
-						<h:outputLabel value="xxx" />
-							
-					</h:panelGrid>
-				</p:panel>
-				
-				<p:poll interval="3" listener="#{dashboardBean.refresh()}" update="info_form" />
-			</h:form>
+			<p:panel id="operation_panel_2"
+				header="#{showBean.operation2.operatingRoom} - Phụ Trách: #{showBean.operation2.mainSurgeon}"
+				rendered="#{showBean.operation2 != null}"
+				style="margin-bottom:20px; border:solid #dad7d7 2px;">
+				<h:panelGrid columns="2" columnClasses="name_long, value">
 
-		</ui:define>
+					<h:outputLabel value="Tên Bệnh Nhân: " />
+					<h:outputLabel value="#{showBean.operation2.patientName}" />
 
-	</ui:composition>
+					<h:outputLabel value="Tuổi: " />
+					<h:outputLabel value="#{showBean.operation2.patientAge}" />
+
+					<h:outputLabel value="Thời gian bắt đầu: " />
+					<h:outputLabel value="#{showBean.operation2.formattedStartTime}" />
+
+					<h:outputLabel value="Thời gian kết thúc: " />
+					<h:outputLabel value="#{showBean.operation2.formattedEndTime}" />
+
+					<h:outputLabel value="#{showBean.operation2.status}: " />
+					<h:outputText value="#{showBean.operation2.note}" />
+
+				</h:panelGrid>
+			</p:panel>
+
+			<p:poll interval="30" listener="#{showBean.loadData()}"
+				update="show_form" />
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

@@ -29,16 +29,18 @@ h1 {
 .name_long {
     vertical-align: top;
     font-weight: bold;
-    width: 150px;
-    float: left;
+    width: 180px;
+    text-align:left;
     padding: 5px;
     margin-top: 3px;
     clear: left;
 }
 
 .value {
-    float: left;
+    text-align: left;
+    vertical-align: top;
     padding: 5px;
+    padding-right: 50px;
 }
 
 button {
